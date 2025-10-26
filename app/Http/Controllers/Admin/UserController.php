@@ -13,9 +13,8 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     use FlashAlert;
-    /**
-     * Display a listing of the resource.
-     */
+
+
     public function index()
     {
         $users = User::paginate(10);
@@ -70,9 +69,9 @@ class UserController extends Controller
         try{
             $user = User::findOrfail($id);
             $roles = Role::all();
-            return view('pages.admin.users.edit',compact('user','roles'));
+            return view('backend.admin.users.edit',compact('user','roles'));
         }catch(ModelNotFoundException $e){
-            return redirect()->route('admin.user.index')->with($this->alertNotFound());
+            return redirect()->route('backend.admin.user.index')->with($this->alertNotFound());
 
         }
     }

@@ -16,13 +16,13 @@
 <body>
   <div class="wrapper">
 
-    {{-- @if(Auth::check()) --}}
+    @if(Auth::check())
       @include('backend.layouts.partials.header')
-    {{-- @endif --}}
+    @endif
 
-    {{-- @if(Auth::check()) --}}
+    @if(Auth::check())
       @include('backend.layouts.partials.sidebar')
-    {{-- @endif --}}
+    @endif
     
     @yield('content')
     
