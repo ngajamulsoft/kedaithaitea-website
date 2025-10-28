@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,7 @@ Route::name('admin.')
     ->group(function () {
         Route::resource('user', UserController::class);
         Route::resource('permission', PermissionController::class);
+        Route::resource('role', RoleController::class);
     });
     
 

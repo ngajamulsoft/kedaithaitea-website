@@ -45,10 +45,10 @@
                                     <div class="form-group">
                                         <label>Role *</label>
                                         <select name="role_id" id="role_id"  @error('role_id') is-invalid @enderror class="selectpicker form-control" data-style="py-0">
-                                            @if(count($roles))
-                                                @foreach($roles as $role)
-                                                    <option value="{{ $role->id }}" {{ $role->id == $user->role_id ? 'selected' : '' }}>{{ $role->display_name }}</option>
-                                                @endforeach
+                                            @if (count($roles))
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}" {{ $role->id == $user->roles[0]->id ? 'selected="selected"' : '' }}>{{ $role->display_name }}</option>
+                                            @endforeach
                                             @endif
                                         </select>
                                         @error('role_id')                                            
