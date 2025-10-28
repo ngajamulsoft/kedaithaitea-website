@@ -6,18 +6,14 @@
             <div class="col-lg-12">
                 <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
                     <div>
-                        <h4 class="mb-3">User List</h4>
-                        {{-- @if(session('message'))
-                            <x-alert :type="session('type')" :message="session('message')"/>
-                        @endif --}}
-
+                        <h4 class="mb-3">Permission List</h4>
                         @if(session('message'))
                         <div class="alert alert-{{ session('type') ?? 'info' }}" role="alert">
                             <div class="iq-alert-text">{{ session('message') ?? '' }}</div>
                         </div>
                         @endif
                     </div>
-                    <a href="{{ route('admin.user.create') }}" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add User</a>
+                    <a href="{{ route('admin.permission.create') }}" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Create</a>
                 </div>
             </div>
             <div class="col-lg-12">
@@ -28,29 +24,25 @@
                             
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
+                            <th>Display Name</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="ligth-body">
-                        @foreach($users as $user)
+                        @foreach($permissions as $permission)
                         <tr>
-                            <td>{{ $user->id }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
+                            <td>{{ $permission->id }}</td>
+                            <td>{{ $permission->name }}</td>
+                            <td>{{ $permission->display_name }}</td>
+                
                             <td>
-                                @foreach ($user->roles as $role )
-                                    {{ $role->display_name }}
-                                @endforeach
-                            </td>
-                            <td>
-                                <form action="{{ route('admin.user.destroy',$user->id) }}" method="post">
+                                
+                                <form action="{{ route('admin.permission.destroy',$permission->id) }}" method="POST">
                                     @method('DELETE') @csrf
                                 <div class="d-flex align-items-center list-action">
-                                    
                                     <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
-                                        href="{{ route('admin.user.edit',$user->id) }}"><i class="ri-pencil-line mr-0"></i></a>
+                                        href="{{ route('admin.permission.edit',$permission->id) }}"><i class="ri-pencil-line mr-0"></i>
+                                    </a>
                                     <button style="border:none" type="submit" class="badge bg-danger mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
                                         <i class="ri-delete-bin-line mr-0"></i>
                                     </button>
@@ -62,8 +54,7 @@
                         
                     </tbody>
                 </table>
-                {{ $users->links('backend.layouts.partials.customPagination') }}
-
+                {{ $permissions->links('backend.layouts.partials.customPagination') }}
                 </div>
             </div>
         </div>

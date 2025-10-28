@@ -18,6 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(10);
+        // dd(session()->all());
         return view('backend.admin.users.index',compact('users'));
     }
 
@@ -27,7 +28,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
-        return view('admin.users.create',compact('roles'));
+        return view('backend.admin.users.create',compact('roles'));
     }
 
     /**
@@ -35,11 +36,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'role_id' => 'required',
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role_id' => ['required']
         ]);
 
         $user = User::create([
@@ -49,8 +50,11 @@ class UserController extends Controller
         ]);
 
         $role = Role::find($request->role_id);
-        $user->attachRole($role);
-        return redirect()->route('admin.user.index')->with($this->alertCreated());
+        $user->roles()->attach($role);
+        return redirect()->route('admin.user.index')->with([
+            'message' => 'Data created successfully!',
+            'type' => 'success'
+        ]);
     }
 
     /**
@@ -71,7 +75,10 @@ class UserController extends Controller
             $roles = Role::all();
             return view('backend.admin.users.edit',compact('user','roles'));
         }catch(ModelNotFoundException $e){
-            return redirect()->route('backend.admin.user.index')->with($this->alertNotFound());
+            return redirect()->route('admin.user.index')->with([
+            'message' => 'Data Not Found!',
+            'type' => 'warning'
+            ]);
 
         }
     }
@@ -103,10 +110,16 @@ class UserController extends Controller
 
             $role = Role::find($request->role_id);
             $user->attachRole($role);
-            return redirect()->route('admin.user.index')->with($this->alertUpdated());
+            return redirect()->route('admin.user.index')->with([
+            'message' => 'Data updated successfully!',
+            'type' => 'success'
+            ]);
 
         }catch(ModelNotFoundException $e){
-            return redirect()->route('admin.user.index')->with($this->alertNotFound());
+            return redirect()->route('admin.user.index')->with([
+            'message' => 'Data Not Found!',
+            'type' => 'warning'
+            ]);
 
         }
     }
@@ -121,13 +134,19 @@ class UserController extends Controller
             $roles = $user->roles;
 
             foreach($roles as $role){
-                $user->detach($role);
+                $user->roles()->detach($role->id);
             }
 
             $user->delete();
-            return redirect()->route('admin.user.index')->with($this->alertDeleted());
+            return redirect()->route('admin.user.index')->with([
+                'message' => 'Data deleted successfully!',
+                'type' => 'success'
+            ]);
         }catch(ModelNotFoundException $e){
-            return redirect()->route('admin.user.index')->with($this->alertNotFound());
+            return redirect()->route('admin.user.index')->with([
+            'message' => 'Data Not Found!',
+            'type' => 'warning'
+            ]);
 
         }
     }

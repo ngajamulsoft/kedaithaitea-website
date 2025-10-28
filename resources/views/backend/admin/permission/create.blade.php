@@ -7,19 +7,19 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">Edit Users</h4>
+                            <h4 class="card-title">Add Permission</h4>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.user.update',$user->id) }}" >
-                            @csrf @method('PUT')
+                        <form method="POST" action="{{ route('admin.permission.store') }}" >
+                            @csrf 
                             <div class="row"> 
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Name *</label>
-                                        <input name="name" type="text" class="form-control" placeholder="Enter Name" 
-                                        @error('name') is-invalid @enderror value="{{ $user->name  }}">
+                                        <label>Permission Name *</label>
+                                        <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Permission-Name" 
+                                        autocomplete="name" autofocus value="{{ old('name') }}">
                                         @error('name')                                            
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -29,10 +29,22 @@
                                 </div> 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Email *</label>
-                                        <input name="email" type="email" class="form-control" placeholder="Enter Email" 
-                                        @error('email') is-invalid @enderror value="{{ $user->email  }}">
-                                        @error('email')                                            
+                                        <label>Display Name*</label>
+                                        <input name="display_name" type="text" class="form-control @error('display_name') is-invalid @enderror" placeholder="Enter Display Name" 
+                                         autocomplete="display_name" value="{{ old('display_name') }}">
+                                        @error('display_name')                                            
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span> 
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Description*</label>
+                                        <input name="description" type="text" class="form-control @error('description') is-invalid @enderror" placeholder="Enter Description" 
+                                         autocomplete="description" value="{{ old('description') }}">
+                                        @error('description')                                            
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span> 
@@ -40,27 +52,9 @@
                                     </div>
                                 </div> 
 
-        
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Role *</label>
-                                        <select name="role_id" id="role_id"  @error('role_id') is-invalid @enderror class="selectpicker form-control" data-style="py-0">
-                                            @if(count($roles))
-                                                @foreach($roles as $role)
-                                                    <option value="{{ $role->id }}" {{ $role->id == $user->role_id ? 'selected' : '' }}>{{ $role->display_name }}</option>
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                        @error('role_id')                                            
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span> 
-                                        @enderror
-                                    </div>
-                                </div>
                                                             
                             </div>                            
-                            <button type="submit" class="btn btn-primary mr-2">Update</button>
+                            <button type="submit" class="btn btn-primary mr-2">Submit</button>
                         </form>
                     </div>
                 </div>

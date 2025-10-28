@@ -28,6 +28,10 @@
                             <a href="{{ route('admin.user.index') }}" class="btn border add-btn shadow-none mx-2 d-none d-md-block"
                                 ><i class="las la-user mr-2"></i>User</a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.permission.index') }}" class="btn border add-btn shadow-none mx-2 d-none d-md-block"
+                                ><i class="las la-user mr-2"></i>Permission</a>
+                        </li>
 
                         <li class="nav-item nav-icon dropdown caption-content">
                             <a href="#" class="search-toggle dropdown-toggle" id="dropdownMenuButton4"

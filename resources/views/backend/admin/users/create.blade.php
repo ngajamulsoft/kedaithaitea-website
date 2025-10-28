@@ -18,8 +18,8 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Name *</label>
-                                        <input name="name" type="text" class="form-control" placeholder="Enter Name" 
-                                        @error('name') is-invalid @enderror value="{{ old('name')  }}">
+                                        <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Enter Name" 
+                                         value="{{ old('name')  }}">
                                         @error('name')                                            
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -30,8 +30,8 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Email *</label>
-                                        <input name="email" type="email" class="form-control" placeholder="Enter Email" 
-                                        @error('email') is-invalid @enderror value="{{ old('email')  }}">
+                                        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Enter Email" 
+                                         value="{{ old('email')  }}">
                                         @error('email')                                            
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -43,7 +43,7 @@
                                 <div class="col-md-6">                      
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" name="password" class="form-control" @error('password') is-invalid @enderror placeholder="Enter Password"  >
+                                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"  placeholder="Enter Password"  >
                                         @error('password')                                            
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -61,7 +61,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Role *</label>
-                                        <select name="role_id" id="role_id"  @error('role_id') is-invalid @enderror class="selectpicker form-control" data-style="py-0">
+                                        <select name="role_id" id="role_id"   class="selectpicker form-control @error('role_id') is-invalid @enderror" data-style="py-0">
                                             @if(count($roles))
                                                 @foreach($roles as $role)
                                                     <option value="{{ $role->id }}">{{ $role->display_name }}</option>
@@ -77,7 +77,7 @@
                                 </div>
                                                             
                             </div>                            
-                            <button type="submit" class="btn btn-primary mr-2">Register</button>
+                            <button type="submit" class="btn btn-primary mr-2">Submit</button>
                         </form>
                     </div>
                 </div>
